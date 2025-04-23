@@ -34,9 +34,10 @@ public class FreeMovable : MonoBehaviour, IMovable {
         var moveParams = new GridObject.MoveActionParams()
         {
             moveSpeed = _moveSpeed,
-            rotationSpeed = _rotationSpeed
+            rotationSpeed = _rotationSpeed,
+            direction = direction
         };
-        GridObject.TryMoveInDirection(direction, moveParams);
+        GridObject.TryMoveInDirection(moveParams);
     }
 
     public Vector3 GetDirection() {

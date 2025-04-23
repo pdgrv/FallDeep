@@ -14,10 +14,13 @@ public class GridObject : MonoBehaviour {
 
 
     [SerializeField] private Transform _viewOrigin;
+    [SerializeField] private ViewController _viewController;
     
 
     [Tooltip("Смещения клеток, которые занимает объект, относительно origin")]
     [SerializeField] private Vector2Int[] offsets = new Vector2Int[] { Vector2Int.zero };
+    
+    private Vector2Int _previousGridPosition;
 
     public IEnumerable<Vector2Int> GetOccupiedCoords()
     {
@@ -35,6 +38,7 @@ public class GridObject : MonoBehaviour {
 
         Vector3 worldPos = field.GetWorldPosition(gridPosition);
         transform.position = worldPos;
+        _previousGridPosition = gridPosition;
     }
 
     public static Vector3 VisualOffset = new Vector3(1f, 0.5f, 0.5f);
@@ -66,9 +70,7 @@ public class GridObject : MonoBehaviour {
 #endif
 
     private Vector3? _currentTarget;
-
     private Quaternion? _currentRotation;
-
     MoveActionParams _moveActionParams;
 
     private void Update() {
@@ -100,7 +102,7 @@ public class GridObject : MonoBehaviour {
         }
     }
 
-    public bool TryMoveInDirection(Vector2Int direction, MoveActionParams moveActionParams) {
+    public bool TryMoveInDirection(MoveActionParams moveActionParams) {
         if (cellType is not GridCell.CellType.Movable and not GridCell.CellType.Spawn and not GridCell.CellType.EnemySpawn) {
             return false;
         }
@@ -109,38 +111,30 @@ public class GridObject : MonoBehaviour {
             return false;
         }
         
-        TryRotateObject(direction, moveActionParams);
+        TryRotateObject(moveActionParams.direction, moveActionParams);
 
-        if (!CanMove(direction, moveActionParams)) {
+        if (!CanMove(moveActionParams.direction, moveActionParams.ignoredCells)) {
             return false;
         }
-        
+
+        var direction = moveActionParams.direction;
         var target = gridPosition + direction;
 
-        var targetList = new List<Vector2Int>()
-        {
-            target,
-        };
-
-        foreach (var occupiedCoords in GetOccupiedCoords()) {
-            targetList.Add(occupiedCoords + direction);
-        }
+        _previousGridPosition = gridPosition;
+        moveActionParams.startPosition = gridPosition;
         
-        foreach (var occupiedTargets in targetList) {
-            if (CheckBlocked(occupiedTargets, moveActionParams)) {
-                return false;
-            }
-        }
-
         gridPosition = target;
-        _currentTarget = AttachedField.GetWorldPosition(target);
         _moveActionParams = moveActionParams;
-        
+        _currentTarget = AttachedField.GetWorldPosition(target);
+        if (_viewController) {
+            _viewController.UpdateState(true, moveActionParams.withInteraction);
+        }
+
         AttachedField.RefreshFromSceneObjects();
         return true;
     }
 
-    public bool CanMove(Vector2Int direction, MoveActionParams moveActionParams) {
+    public bool CanMove(Vector2Int direction, List<Vector2Int> ignoredCells = null) {
         if (cellType is not GridCell.CellType.Movable and not GridCell.CellType.Spawn and not GridCell.CellType.EnemySpawn) {
             return false;
         }
@@ -161,7 +155,7 @@ public class GridObject : MonoBehaviour {
         }
         
         foreach (var occupiedTargets in targetList) {
-            if (CheckBlocked(occupiedTargets, moveActionParams)) {
+            if (CheckBlocked(occupiedTargets, ignoredCells)) {
                 return false;
             }
         }
@@ -183,7 +177,7 @@ public class GridObject : MonoBehaviour {
         gridRotation = direction;
     }
 
-    private bool CheckBlocked(Vector2Int target, MoveActionParams moveActionParams) {
+    private bool CheckBlocked(Vector2Int target, List<Vector2Int> ignoredCells) {
         var field = AttachedField;
         if (field == null) return true;
 
@@ -191,7 +185,7 @@ public class GridObject : MonoBehaviour {
             return true;
         }
 
-        if (moveActionParams.ignoredCells.Contains(target)) {
+        if (ignoredCells != null && ignoredCells.Contains(target)) {
             return false;
         }
         
@@ -210,6 +204,9 @@ public class GridObject : MonoBehaviour {
     }
 
     private void StopMoving() {
+        if (_viewController) {
+            _viewController.UpdateState(false, false);
+        }
         _currentTarget = null;
     }
 
@@ -225,5 +222,8 @@ public class GridObject : MonoBehaviour {
         public float moveSpeed;
         public float rotationSpeed;
         public List<Vector2Int> ignoredCells = new();
+        public Vector2Int startPosition;
+        public Vector2Int direction;
+        public bool withInteraction;
     }
 }

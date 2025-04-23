@@ -1,28 +1,36 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿using System.Linq;
 using UnityEngine;
 
 namespace Scripts.Interaction {
     public class FreeGridInteractable : MonoBehaviour, IInteractable {
         public GridObject GridObject;
+        [SerializeField] private float _interactionMoveSpeed = 2f;
+        
 
         public void CreateInteraction(Vector2Int direction) {
             GridObject targetObject = FindTargetObject();
             if (targetObject != null) {
-                var targetMoved = targetObject.TryMoveInDirection(direction, new GridObject.MoveActionParams()
-                {
-                    moveSpeed = 5f,
-                    rotationSpeed = 0f,
-                    ignoredCells = GridObject.GetOccupiedCoords().ToList()
-                });
+                bool canMoveSelf = GridObject.CanMove(direction, targetObject.GetOccupiedCoords().ToList());
 
-                if (targetMoved) {
-                    GridObject.TryMoveInDirection(direction, new GridObject.MoveActionParams()
+                if (canMoveSelf) {
+                    var targetMoved = targetObject.TryMoveInDirection(new GridObject.MoveActionParams()
                     {
-                        moveSpeed = 5f,
+                        direction =  direction,
+                        moveSpeed = _interactionMoveSpeed,
                         rotationSpeed = 0f,
-                        ignoredCells = targetObject.GetOccupiedCoords().ToList()
+                        ignoredCells = GridObject.GetOccupiedCoords().ToList()
                     });
+                    
+                    if (targetMoved) {
+                        GridObject.TryMoveInDirection(new GridObject.MoveActionParams()
+                        {
+                            direction = direction,
+                            moveSpeed = _interactionMoveSpeed,
+                            rotationSpeed = 0f,
+                            ignoredCells = targetObject.GetOccupiedCoords().ToList(),
+                            withInteraction = true,
+                        });
+                    }
                 }
             }
         }
