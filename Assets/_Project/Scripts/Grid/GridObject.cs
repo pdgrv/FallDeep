@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using Scripts;
 
 [ExecuteAlways]
 public class GridObject : MonoBehaviour {
@@ -31,13 +32,33 @@ public class GridObject : MonoBehaviour {
     public GridField AttachedField => _attachedField ??= GetComponentInParent<GridField>();
     private GridField _attachedField = null;
 
+    public void ChangeAttachedField(GridField newField) {
+        newField.UpdateGrid();
+        var spawnCell = newField.GetSpawnCell();
+
+        if (spawnCell.Occupant != null && spawnCell.Occupant != RootEntry.Instance.Player) {
+            spawnCell.Occupant.Delete();
+        }
+        
+        _attachedField = newField;
+        Vector2Int spawnCellCoords = spawnCell.Coord;
+        transform.SetParent(newField.transform);
+        gridPosition = spawnCellCoords;
+        AutoAlignToGridOrigin();
+        newField.UpdateGrid();
+    }
+
+    private void Delete() {
+        Destroy(gameObject);
+    }
+
     public void AutoAlignToGridOrigin()
     {
         var field = AttachedField;
         if (field == null || field.Grid == null) return;
 
         Vector3 worldPos = field.GetWorldPosition(gridPosition);
-        transform.position = worldPos;
+        transform.position = worldPos + VisualOffset;
         _previousGridPosition = gridPosition;
     }
 
@@ -51,7 +72,7 @@ public class GridObject : MonoBehaviour {
         Gizmos.color = Color.red;
         foreach (var coord in GetOccupiedCoords())
         {
-            Vector3 pos = field.GetWorldPosition(coord) - VisualOffset;
+            Vector3 pos = field.GetWorldPosition(coord);
             Gizmos.DrawWireCube(pos + Vector3.one * 0.5f, Vector3.one);
         }
     }
@@ -125,12 +146,12 @@ public class GridObject : MonoBehaviour {
         
         gridPosition = target;
         _moveActionParams = moveActionParams;
-        _currentTarget = AttachedField.GetWorldPosition(target);
+        _currentTarget = AttachedField.GetWorldPosition(target) + VisualOffset;
         if (_viewController) {
             _viewController.UpdateState(true, moveActionParams.withInteraction);
         }
 
-        AttachedField.RefreshFromSceneObjects();
+        AttachedField.UpdateGrid();
         return true;
     }
 

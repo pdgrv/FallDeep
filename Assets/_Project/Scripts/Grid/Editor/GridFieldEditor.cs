@@ -96,10 +96,10 @@ public class GridFieldEditor : Editor
                 var cell = field.GetCell(coord);
                 if (cell == null) continue;
 
-                Vector3 p0 = field.GetWorldPosition(coord) - GridObject.VisualOffset;
-                Vector3 p1 = field.GetWorldPosition(coord + Vector2Int.right) - GridObject.VisualOffset;
-                Vector3 p2 = field.GetWorldPosition(coord + Vector2Int.one) - GridObject.VisualOffset;
-                Vector3 p3 = field.GetWorldPosition(coord + Vector2Int.up) - GridObject.VisualOffset;
+                Vector3 p0 = field.GetWorldPosition(coord);
+                Vector3 p1 = field.GetWorldPosition(coord + Vector2Int.right);
+                Vector3 p2 = field.GetWorldPosition(coord + Vector2Int.one);
+                Vector3 p3 = field.GetWorldPosition(coord + Vector2Int.up);
 
                 // Цвет
                 Handles.color = GetColor(cell.Type) * new Color(1, 1, 1, 0.3f);

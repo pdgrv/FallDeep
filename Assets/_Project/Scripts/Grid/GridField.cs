@@ -1,4 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
+using Scripts.Level;
 using UnityEditor;
 using UnityEngine;
 
@@ -11,6 +14,8 @@ public class GridField : MonoBehaviour
 
     public Vector2Int Size => gridSize;
     public Grid Grid => grid;
+
+    public event Action OnUpdate;
 
     public GridCell GetCell(Vector2Int coord)
     {
@@ -31,14 +36,21 @@ public class GridField : MonoBehaviour
 
     public Vector3 GetWorldPosition(Vector2Int coord)
     {
-        return grid.CellToWorld((Vector3Int)coord); //сделать тут оффсет
+        return grid.CellToWorld((Vector3Int)coord) - GridObject.VisualOffset;
     }
-    
-#if UNITY_EDITOR
-    public void RefreshFromSceneObjects()
-    {
-        Undo.RecordObject(this, "Refresh GridField");
 
+    public void UpdateGrid() {
+        int total = gridSize.x * gridSize.y;
+        if (cells.Count != total)
+        {
+            cells.Clear();
+            for (int y = 0; y < gridSize.y; y++)
+            for (int x = 0; x < gridSize.x; x++) {
+                var cell = new GridCell(new Vector2Int(x, y));
+                cells.Add(cell);
+            }
+        }
+        
         foreach (var cell in cells) {
             cell.Type = GridCell.CellType.Empty;
             cell.Occupant = null;
@@ -48,7 +60,7 @@ public class GridField : MonoBehaviour
         foreach (var obj in gridObjects)
         {
             foreach (var coord in obj.GetOccupiedCoords())
-            {
+            { 
                 var cell = GetCell(coord);
                 if (cell != null) {
                     cell.Type = obj.cellType;
@@ -56,7 +68,16 @@ public class GridField : MonoBehaviour
                 }
             }
         }
+        
+        OnUpdate?.Invoke();
+    }
 
+
+#if UNITY_EDITOR
+    public void RefreshFromSceneObjects()
+    {
+        Undo.RecordObject(this, "Refresh GridField");
+        UpdateGrid();
         EditorUtility.SetDirty(this);
     }
 
@@ -74,4 +95,11 @@ public class GridField : MonoBehaviour
         }
     }
 #endif
+    public void SpawnPlayerOnGrid(GridObject player) {
+        player.ChangeAttachedField(this);
+    }
+
+    public GridCell GetSpawnCell() {
+        return cells.First(p => p.Type is GridCell.CellType.Spawn);
+    }
 }
