@@ -17,7 +17,7 @@ namespace Scripts.Level {
         private void OnGridUpdate() {
             var gridPosition = RootEntry.Instance.Player.gridPosition;
 
-            if (gridPosition == LevelExitCoords) {
+            if (gridPosition == LevelExitCoords && enabled) {
                 Complete();
             }
         }
