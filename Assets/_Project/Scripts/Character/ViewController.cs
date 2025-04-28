@@ -4,7 +4,7 @@ public class ViewController : MonoBehaviour {
     [SerializeField] private Animator _animator;
 
     private AnimationController _animationController;
-    
+
     private void Start() {
         if (_animator) {
             _animationController ??= new AnimationController(_animator);
@@ -23,14 +23,18 @@ public class ViewController : MonoBehaviour {
                 if (isInteraction) {
                     _animationController.UpdateState(AnimationController.AnimStates.IsPulling);
                 } else {
-                    _animationController.UpdateState(AnimationController.AnimStates.IsMoving);   
+                    _animationController.UpdateState(AnimationController.AnimStates.IsMoving);
                 }
             } else {
-                _animationController.UpdateState(AnimationController.AnimStates.Idle);
+                if (isInteraction) {
+                    _animationController.UpdateState(AnimationController.AnimStates.IsInteractionIdle);
+                } else {
+                    _animationController.UpdateState(AnimationController.AnimStates.Idle);
+                }
             }
         }
     }
-    
+
     public class AnimationController {
         private readonly Animator _animator;
 
@@ -41,12 +45,13 @@ public class ViewController : MonoBehaviour {
         private const string MoveBool = "IsMoving";
         private const string PushBool = "IsPushing";
         private const string PullBool = "IsPulling";
-        
+
         public enum AnimStates {
             Idle,
             IsMoving,
             IsPushing,
-            IsPulling
+            IsPulling,
+            IsInteractionIdle
         }
 
         public void UpdateState(AnimStates targetAnimState) {
@@ -71,8 +76,11 @@ public class ViewController : MonoBehaviour {
                     _animator.SetBool(PushBool, false);
                     _animator.SetBool(PullBool, true);
                     break;
-            }           
+                case AnimStates.IsInteractionIdle:
+                    _animator.SetBool(MoveBool, false);
+                    _animator.SetBool(PushBool, false);
+                    break;
+            }
         }
     }
-
 }

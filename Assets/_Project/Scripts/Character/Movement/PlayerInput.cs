@@ -31,12 +31,17 @@ namespace Scripts.Movement {
             int vertical = Input.GetKey(KeyCode.W) ? 1 : Input.GetKey(KeyCode.S) ? -1 : 0;
             int horizontal = Input.GetKey(KeyCode.A) ? -1 : Input.GetKey(KeyCode.D) ? 1 : 0;
             Vector2Int input = new Vector2Int(horizontal, vertical);
-            
+
             if (isInteracting) {
                 HandleInteraction(input);
             } else {
                 HandleMovement(input);
             }
+        }
+
+        //todo: доделать анимацию при старте взаимодействия
+        private void HandleInteractionBool(bool isInteracting) {
+            _playerInteractable?.CreateInteractionStart(isInteracting);
         }
 
         private void HandleInteraction(Vector2Int input) {

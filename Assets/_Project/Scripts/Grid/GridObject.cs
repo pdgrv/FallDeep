@@ -123,6 +123,12 @@ public class GridObject : MonoBehaviour {
         }
     }
 
+    public void UpdateInteraction(bool isInteraction) {
+        if (_viewController) {
+            _viewController.UpdateState(false, isInteraction);
+        }
+    }
+
     public bool TryMoveInDirection(MoveActionParams moveActionParams) {
         if (cellType is not GridCell.CellType.Movable and not GridCell.CellType.Spawn and not GridCell.CellType.EnemySpawn) {
             return false;
