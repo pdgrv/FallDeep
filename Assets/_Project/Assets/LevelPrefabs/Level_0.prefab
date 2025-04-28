@@ -1046,7 +1046,7 @@ Transform:
   m_GameObject: {fileID: 3856905875899091800}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 9, y: 0, z: 5}
+  m_LocalPosition: {x: 4, y: 0, z: 4}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1068,7 +1068,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellType: 1
   IsRotatable: 0
-  gridPosition: {x: 9, y: 5}
+  gridPosition: {x: 4, y: 4}
   gridRotation: {x: 0, y: 0}
   _viewOrigin: {fileID: 0}
   _viewController: {fileID: 0}
@@ -1100,7 +1100,7 @@ Transform:
   m_GameObject: {fileID: 3875169395338366842}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 1, y: 0, z: 9}
+  m_LocalPosition: {x: 2, y: 0, z: 3}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1124,7 +1124,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellType: 1
   IsRotatable: 0
-  gridPosition: {x: 1, y: 9}
+  gridPosition: {x: 2, y: 3}
   gridRotation: {x: 0, y: 0}
   _viewOrigin: {fileID: 0}
   _viewController: {fileID: 0}
@@ -1357,7 +1357,7 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 256
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 28bfc991903de8c4bbbbf39424e53400, type: 2}
@@ -1751,7 +1751,7 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 256
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 28bfc991903de8c4bbbbf39424e53400, type: 2}
@@ -1968,7 +1968,7 @@ MeshRenderer:
   m_RayTracingAccelStructBuildFlagsOverride: 0
   m_RayTracingAccelStructBuildFlags: 1
   m_SmallMeshCulling: 1
-  m_RenderingLayerMask: 1
+  m_RenderingLayerMask: 256
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: 28bfc991903de8c4bbbbf39424e53400, type: 2}

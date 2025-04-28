@@ -3687,38 +3687,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Level_0
       objectReference: {fileID: 0}
-    - target: {fileID: 1397177769598990538, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 1637569801049629171, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 1721305995110702134, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 3581932672820120821, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 4924036461066126632, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 5614208438171365175, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
-    - target: {fileID: 6119500060229829867, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 256
-      objectReference: {fileID: 0}
-    - target: {fileID: 6722424788193792676, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_Layer
-      value: 6
-      objectReference: {fileID: 0}
     - target: {fileID: 6937030924771100919, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3758,18 +3730,6 @@ PrefabInstance:
     - target: {fileID: 6937030924771100919, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 8098611027448831552, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_DynamicOccludee
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8098611027448831552, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 8471066142482869500, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_RenderingLayerMask
-      value: 256
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
