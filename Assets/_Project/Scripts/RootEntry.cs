@@ -2,7 +2,6 @@
 using Scripts.CameraControl;
 using Scripts.Character;
 using Scripts.Level;
-using Scripts.Movement;
 using UnityEngine;
 
 namespace Scripts {

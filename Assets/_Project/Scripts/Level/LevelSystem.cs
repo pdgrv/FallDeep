@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using Scripts.Utils;
 
 namespace Scripts.Level {
     public class LevelSystem {
@@ -11,11 +12,18 @@ namespace Scripts.Level {
         }
         
         public void SetupAndStart(int level) {
-            if (level < _levels.Count) {
+            if (_levels.IsIndexInBounds(level)) {
                 var targetLevel = _levels[level];
                 targetLevel.SetupAndStart(OnLevelComplete);
             } else {
                 RootEntry.Instance.CompleteGame();
+            }
+        }
+
+        public void CompleteLevel(int level) {
+            if (_levels.IsIndexInBounds(level)) {
+                var targetLevel = _levels[level];
+                targetLevel.CompleteLevel();
             }
         }
 
