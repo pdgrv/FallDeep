@@ -3529,10 +3529,6 @@ PrefabInstance:
       propertyPath: mainCamera
       value: 
       objectReference: {fileID: 330585545}
-    - target: {fileID: 3620641217667869077, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6937030924771100919, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -3573,18 +3569,8 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 8285169861867669652, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: gridSize.x
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 8285169861867669652, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-      propertyPath: cells.Array.size
-      value: 100
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
-    m_RemovedGameObjects:
-    - {fileID: 3620641217667869077, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
-    - {fileID: 4547792275333920095, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 15bfc9ac567f1a048b0dbeccd3d1fdfd, type: 3}

@@ -5,7 +5,7 @@ namespace Scripts.Interaction {
     public class FreeGridInteractable : MonoBehaviour, IInteractable {
         public GridObject GridObject;
         [SerializeField] private float _interactionMoveSpeed = 2f;
-        
+
 
         public void CreateInteraction(Vector2Int direction) {
             GridObject targetObject = FindTargetObject();
@@ -34,6 +34,8 @@ namespace Scripts.Interaction {
                 }
             }
         }
+
+        public bool CheckInteractableObject() => FindTargetObject() != null;
 
         private GridObject FindTargetObject() {
             var targetPos = GridObject.gridPosition + GridObject.gridRotation;

@@ -8,7 +8,5 @@ namespace Scripts.CameraControl {
             _mainCamera = mainCamera;
         }
 
-        public void Update() {
-        }
     }
 }

@@ -28,7 +28,6 @@ namespace Scripts {
         
         private void Update() {
             LevelSystem.Update();
-            CameraSystem.Update();
             PlayerSystem.Update();
         }
 
