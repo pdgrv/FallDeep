@@ -10,7 +10,7 @@ public class GridField : MonoBehaviour
 {
     [SerializeField] private Grid grid;
     [SerializeField] private Vector2Int gridSize = new(10, 10);
-    [SerializeField] private List<GridCell> cells = new();
+    private List<GridCell> cells = new();
 
     public Vector2Int Size => gridSize;
     public Grid Grid => grid;
