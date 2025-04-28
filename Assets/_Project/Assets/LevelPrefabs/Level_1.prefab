@@ -372,7 +372,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cellType: 2
   IsRotatable: 0
-  gridPosition: {x: 0, y: 0}
+  gridPosition: {x: 0, y: 8}
   gridRotation: {x: 0, y: 0}
   _viewOrigin: {fileID: 0}
   _viewController: {fileID: 0}
